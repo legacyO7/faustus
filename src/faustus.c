@@ -3103,7 +3103,7 @@ static int asus_wmi_add(struct platform_device *pdev)
 
 	if (asus->driver->quirks->wmi_force_als_set)
 		asus_wmi_set_als();
-
+ #if LINUX_VERSION_CODE < KERNEL_VERSION(6,1,1)
 	/* Some Asus desktop boards export an acpi-video backlight interface,
 	   stop this from showing up */
 	chassis_type = dmi_get_system_info(DMI_CHASSIS_TYPE);
@@ -3115,7 +3115,7 @@ static int asus_wmi_add(struct platform_device *pdev)
 
 	if (asus->driver->quirks->wmi_backlight_native)
 		acpi_video_set_dmi_backlight_type(acpi_backlight_native);
-
+ #endif
 	if (asus->driver->quirks->xusb2pr)
 		asus_wmi_set_xusb2pr(asus);
 
